@@ -1,0 +1,35 @@
+## -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+def build(bld):
+    obj = bld.create_ns3_module('p4-switch', ['core', 'network', 'internet', 'csma', 'utils'])
+    obj.source = [
+        'model/p4-switch-net-device.cc',
+        'model/p4-switch-fancy.cc',
+        'model/p4-switch-loss-radar.cc',
+        'model/p4-switch-net-seer.cc',
+        'model/p4-switch-utils.cc',
+        'model/p4-switch-channel.cc',
+        'model/fancy-header.cc',
+        'model/net-seer-header.cc',
+        'helper/p4-switch-helper.cc',
+        'model/p4-switch-nat.cc'
+        ]
+    headers = bld(features='ns3header')
+    headers.module = 'p4-switch'
+    headers.source = [
+        'model/p4-switch-net-device.h',
+        'model/p4-switch-fancy.h',
+        'model/p4-switch-loss-radar.h',
+        'model/p4-switch-net-seer.h',        
+        'model/p4-switch-utils.h',
+        'model/p4-switch-channel.h',
+        'model/fancy-header.h',
+        'model/net-seer-header.h',
+        'helper/p4-switch-helper.h',
+        'model/p4-switch-nat.h'
+        ]
+
+    if bld.env['ENABLE_EXAMPLES']:
+        bld.recurse('examples')
+
+    #bld.ns3_python_bindings()
